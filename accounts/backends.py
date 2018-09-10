@@ -9,4 +9,27 @@ class EmailAuth:
         Get an instance of `User` based off the email and verify the
         password
         """
-        
+        try:
+            user = User.objects.get(email=username)
+
+            if user.check_password(password):
+                return user
+
+            return None
+        except User.DoesNotExist:
+            return None
+            
+
+    def get_user(self, user_id):
+        """
+        Used by the Django authentiation system to retrieve a user instance
+        """
+        try:
+            user = User.onjects.get(pk=user_id)
+
+            if user.is_valid():
+                return user
+
+            return None
+        except User.DoesNotExist:
+            return None
